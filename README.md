@@ -1,2 +1,2 @@
-# despesas
-Aplicativo pra controle de despesas individuais e coletivas
+# pet-mais
+Projeto open-source para uma carteirinha virtual para animais

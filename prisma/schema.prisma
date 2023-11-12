@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model usuario {
+  id           String     @id @default(uuid())
+  nome         String
+  sobrenome    String
+  documento    String     @unique
+  email        String     @unique
+  senha        String
+  salario      Decimal
+  data_salario Int?
+  ativo        Boolean    @default(true)
+  created_at   DateTime   @default(now())
+  updated_at   DateTime?  @updatedAt
+  despesas     despesas[]
+}
+
+model despesas {
+  id                 String        @id @default(uuid())
+  categoria_relation categoria     @relation(fields: [categoria], references: [categoria])
+  categoria          String
+  descricao          String
+  valor              Decimal
+  data               DateTime      @default(now())
+  pagamento          pagamento
+  usuario_relation   usuario       @relation(fields: [usuario_id], references: [id])
+  usuario_id         String
+  despesa_conjunta   Boolean       @default(false)
+  parcelado          Boolean       @default(false)
+  parcelas_relation  parcelas?     @relation(fields: [parcelas_id], references: [id])
+  parcelas_id        String?
+  created_at         DateTime      @default(now())
+  updated_at         DateTime?     @updatedAt
+  recorrencia        recorrencia[]
+}
+
+model categoria {
+  categoria String     @id
+  despesas  despesas[]
+}
+
+model parcelas {
+  id              String     @id @default(uuid())
+  data_inicio     DateTime
+  total_vezes     Int
+  valor_parcelado Int
+  valor_total     Int
+  created_at      DateTime   @default(now())
+  updated_at      DateTime?  @updatedAt
+  despesas        despesas[]
+}
+
+model recorrencia {
+  id               String    @id @default(uuid())
+  despesa_relation despesas  @relation(fields: [despesas_id], references: [id])
+  despesas_id      String
+  ativo            Boolean   @default(true)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime? @updatedAt
+}
+
+enum pagamento {
+  dinheiro
+  saldo
+  cartao_credito
+  cartao_debito
+  pix
+  fiado
+}
