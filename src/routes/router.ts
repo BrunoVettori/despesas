@@ -1,36 +1,20 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { celebrate, Joi, Segments } from "celebrate";
+import { Router, Request, Response, NextFunction } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
 
-import Login from "../Login";
-
-import prisma from "../database/prisma";
-import auth from "../middlewares/auth";
-import Categoria from "../modules/categoria";
-import Crud from "../modules/Crud";
+import prisma from '../database/prisma';
+import auth from '../middlewares/auth';
+import Categoria from '../modules/categoria';
+import Crud from '../modules/Crud';
 
 const routes = Router();
 const crud = new Crud();
 const categoria = new Categoria();
 
-// Login
-routes.get(
-  "/login",
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().required(),
-      senha: Joi.string().required(),
-    }),
-  }),
-  (req, res) => {
-    Login(req, res);
-  },
-);
-
 // #region Usuario
 
 // Create
 routes.post(
-  "/usuario",
+  '/usuario',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       nome: Joi.string().required(),
@@ -42,8 +26,8 @@ routes.post(
       data_salario: Joi.number(),
     }),
   }),
-  (req, res) => {
-    crud.create(req, res, prisma.usuario);
+  async (req, res) => {
+    return await crud.create(req, res, prisma.usuario);
   },
 );
 
@@ -51,7 +35,7 @@ routes.use(auth);
 
 // Read
 routes.get(
-  "/usuario",
+  '/usuario',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string(),
@@ -72,7 +56,7 @@ routes.get(
 
 // Update
 routes.put(
-  "/usuario",
+  '/usuario',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -93,7 +77,7 @@ routes.put(
 
 // Delete
 routes.delete(
-  "/usuario",
+  '/usuario',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -110,7 +94,7 @@ routes.delete(
 
 // Create
 routes.post(
-  "/despesas",
+  '/despesas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       categoria: Joi.string().required(),
@@ -131,7 +115,7 @@ routes.post(
 
 // Read
 routes.get(
-  "/despesas",
+  '/despesas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string(),
@@ -153,7 +137,7 @@ routes.get(
 
 // Update
 routes.put(
-  "/despesas",
+  '/despesas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -175,7 +159,7 @@ routes.put(
 
 // Delete
 routes.delete(
-  "/despesas",
+  '/despesas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -192,7 +176,7 @@ routes.delete(
 
 // Create
 routes.post(
-  "/categoria",
+  '/categoria',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       categoria: Joi.string().required(),
@@ -205,7 +189,7 @@ routes.post(
 
 // Read
 routes.get(
-  "/categoria",
+  '/categoria',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       categoria: Joi.string(),
@@ -218,7 +202,7 @@ routes.get(
 
 // Update
 routes.put(
-  "/categoria",
+  '/categoria',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       categoria: Joi.string().required(),
@@ -231,7 +215,7 @@ routes.put(
 
 // Delete
 routes.delete(
-  "/categoria",
+  '/categoria',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       categoria: Joi.string().required(),
@@ -248,7 +232,7 @@ routes.delete(
 
 // Create
 routes.post(
-  "/parcelas",
+  '/parcelas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       data_inicio: Joi.date().required(),
@@ -264,7 +248,7 @@ routes.post(
 
 // Read
 routes.get(
-  "/parcelas",
+  '/parcelas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string(),
@@ -281,7 +265,7 @@ routes.get(
 
 // Update
 routes.put(
-  "/parcelas",
+  '/parcelas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -298,7 +282,7 @@ routes.put(
 
 // Delete
 routes.delete(
-  "/parcelas",
+  '/parcelas',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -315,7 +299,7 @@ routes.delete(
 
 // Create
 routes.post(
-  "/recorrencia",
+  '/recorrencia',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       despesas_id: Joi.string().required(),
@@ -329,7 +313,7 @@ routes.post(
 
 // Read
 routes.get(
-  "/recorrencia",
+  '/recorrencia',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string(),
@@ -344,7 +328,7 @@ routes.get(
 
 // Update
 routes.put(
-  "/recorrencia",
+  '/recorrencia',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),
@@ -359,7 +343,7 @@ routes.put(
 
 // Delete
 routes.delete(
-  "/recorrencia",
+  '/recorrencia',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       id: Joi.string().required(),

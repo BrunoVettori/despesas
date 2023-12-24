@@ -1,6 +1,6 @@
-import Token from "../auth/Token";
+import Token from '../auth/Token';
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 function auth(req: Request, res: Response, next: NextFunction) {
   // if (!process.env.JWT_SECRET || !process.env.JWT_EXPIRES_IN) {
@@ -18,6 +18,8 @@ function auth(req: Request, res: Response, next: NextFunction) {
   // if (!token_verified) {
   //   return res.send("token deve ser valido");
   // }
+
+  return true;
 
   next();
 }

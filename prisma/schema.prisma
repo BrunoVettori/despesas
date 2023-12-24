@@ -10,30 +10,42 @@ datasource db {
 }
 
 model usuario {
-  id           String     @id @default(uuid())
-  nome         String
-  sobrenome    String
-  documento    String     @unique
-  email        String     @unique
-  senha        String
-  salario      Decimal
-  data_salario Int?
-  ativo        Boolean    @default(true)
-  created_at   DateTime   @default(now())
-  updated_at   DateTime?  @updatedAt
-  despesas     despesas[]
-  gurpo        gurpo?     @relation(fields: [gurpo_id], references: [id])
-  gurpo_id     String?
+  id            String          @id @default(uuid())
+  nome          String
+  sobrenome     String
+  documento     String          @unique
+  email         String          @unique
+  senha         String
+  salario       Decimal
+  data_salario  Int?
+  vale          Decimal?
+  data_vale     Int?
+  ativo         Boolean         @default(true)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime?       @updatedAt
+  despesas      despesas[]
+  usuario_grupo usuario_grupo[]
+}
+
+model usuario_grupo {
+  id         String          @id @default(uuid())
+  gurpo      gurpo?          @relation(fields: [gurpo_id], references: [id])
+  gurpo_id   String?
+  usuario    usuario?        @relation(fields: [usuario_id], references: [id])
+  usuario_id String?
+  permissao  permissao_grupo
+  created_at DateTime        @default(now())
+  updated_at DateTime?       @updatedAt
 }
 
 model gurpo {
-  id         String     @id @default(uuid())
-  nome       String
-  usuarios   usuario[]
-  despesas   despesas[]
-  ativo      Boolean    @default(true)
-  created_at DateTime   @default(now())
-  updated_at DateTime?  @updatedAt
+  id            String          @id @default(uuid())
+  nome          String
+  usuario_grupo usuario_grupo[]
+  despesas      despesas[]
+  ativo         Boolean         @default(true)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime?       @updatedAt
 }
 
 model despesas {
@@ -85,11 +97,17 @@ model recorrencia {
   updated_at       DateTime? @updatedAt
 }
 
+enum permissao_grupo {
+  owner
+  adm
+  user
+}
+
 enum pagamento {
   dinheiro
-  saldo
+  vale
+  transferencia
   cartao_credito
   cartao_debito
-  pix
   fiado
 }

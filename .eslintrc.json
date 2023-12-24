@@ -8,5 +8,21 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "rules": {}
+  "format": [
+    "camelCase",
+    "strictCamelCase",
+    "PascalCase",
+    "StrictPascalCase",
+    "snake_case",
+    "UPPER_CASE"
+  ],
+  "rules": {
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["snake_case", "camelCase"]
+      }
+    ]
+  }
 }
