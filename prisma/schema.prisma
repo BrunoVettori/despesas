@@ -32,8 +32,7 @@ model despesas {
   valor              Decimal
   data               DateTime      @default(now())
   pagamento          pagamento
-  usuario_relation   usuario       @relation(fields: [usuario_id], references: [id])
-  usuario_id         String
+  usuarios           usuario[]
   despesa_conjunta   Boolean       @default(false)
   parcelado          Boolean       @default(false)
   parcelas_relation  parcelas?     @relation(fields: [parcelas_id], references: [id])
@@ -54,6 +53,7 @@ model parcelas {
   total_vezes     Int
   valor_parcelado Int
   valor_total     Int
+  juros           Int
   created_at      DateTime   @default(now())
   updated_at      DateTime?  @updatedAt
   despesas        despesas[]

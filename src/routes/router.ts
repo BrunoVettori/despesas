@@ -23,7 +23,7 @@ routes.get(
   }),
   (req, res) => {
     Login(req, res);
-  }
+  },
 );
 
 // #region Usuario
@@ -44,7 +44,7 @@ routes.post(
   }),
   (req, res) => {
     crud.create(req, res, prisma.usuario);
-  }
+  },
 );
 
 routes.use(auth);
@@ -67,7 +67,7 @@ routes.get(
   }),
   (req, res) => {
     crud.read(req, res, prisma.usuario);
-  }
+  },
 );
 
 // Update
@@ -88,7 +88,7 @@ routes.put(
   }),
   (req, res) => {
     crud.update(req, res, prisma.usuario);
-  }
+  },
 );
 
 // Delete
@@ -101,7 +101,7 @@ routes.delete(
   }),
   (req, res) => {
     crud.delete(req, res, prisma.usuario);
-  }
+  },
 );
 
 // #endregion
@@ -126,7 +126,7 @@ routes.post(
   }),
   (req, res) => {
     crud.create(req, res, prisma.despesas);
-  }
+  },
 );
 
 // Read
@@ -148,7 +148,7 @@ routes.get(
   }),
   (req, res) => {
     crud.read(req, res, prisma.despesas);
-  }
+  },
 );
 
 // Update
@@ -170,7 +170,7 @@ routes.put(
   }),
   (req, res) => {
     crud.update(req, res, prisma.despesas);
-  }
+  },
 );
 
 // Delete
@@ -183,7 +183,7 @@ routes.delete(
   }),
   (req, res) => {
     crud.delete(req, res, prisma.despesas);
-  }
+  },
 );
 
 // #endregion
@@ -200,7 +200,7 @@ routes.post(
   }),
   (req, res) => {
     categoria.create(req, res, prisma.categoria);
-  }
+  },
 );
 
 // Read
@@ -213,7 +213,7 @@ routes.get(
   }),
   (req, res) => {
     categoria.read(req, res, prisma.categoria);
-  }
+  },
 );
 
 // Update
@@ -226,7 +226,7 @@ routes.put(
   }),
   (req, res) => {
     categoria.update(req, res, prisma.categoria);
-  }
+  },
 );
 
 // Delete
@@ -239,7 +239,7 @@ routes.delete(
   }),
   (req, res) => {
     categoria.delete(req, res, prisma.categoria);
-  }
+  },
 );
 
 // #endregion
@@ -259,7 +259,7 @@ routes.post(
   }),
   (req, res) => {
     crud.create(req, res, prisma.parcelas);
-  }
+  },
 );
 
 // Read
@@ -276,7 +276,7 @@ routes.get(
   }),
   (req, res) => {
     crud.read(req, res, prisma.parcelas);
-  }
+  },
 );
 
 // Update
@@ -293,7 +293,7 @@ routes.put(
   }),
   (req, res) => {
     crud.update(req, res, prisma.parcelas);
-  }
+  },
 );
 
 // Delete
@@ -306,7 +306,7 @@ routes.delete(
   }),
   (req, res) => {
     crud.delete(req, res, prisma.parcelas);
-  }
+  },
 );
 
 // #endregion
@@ -324,7 +324,7 @@ routes.post(
   }),
   (req, res) => {
     crud.create(req, res, prisma.recorrencia);
-  }
+  },
 );
 
 // Read
@@ -339,7 +339,7 @@ routes.get(
   }),
   (req, res) => {
     crud.read(req, res, prisma.recorrencia);
-  }
+  },
 );
 
 // Update
@@ -354,7 +354,7 @@ routes.put(
   }),
   (req, res) => {
     crud.update(req, res, prisma.recorrencia);
-  }
+  },
 );
 
 // Delete
@@ -367,7 +367,7 @@ routes.delete(
   }),
   (req, res) => {
     crud.delete(req, res, prisma.recorrencia);
-  }
+  },
 );
 
 // #endregion
