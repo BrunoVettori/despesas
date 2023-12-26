@@ -1,8 +1,8 @@
-import { Router } from 'express'
+import { request, response, Router } from 'express'
 import { celebrate, Joi, Segments } from 'celebrate'
 
 // import auth from '../../middlewares/auth'
-import { create, read, update, remove } from '../../modules/Crud'
+import { create, read } from '@modules/usuario'
 
 const routes = Router()
 
@@ -22,8 +22,8 @@ routes.post(
       data_vale: Joi.number(),
     }),
   }),
-  async (req, res) => {
-    return await create(req, res, prisma.usuario)
+  (req, res) => {
+    create(req, res)
   },
 )
 
@@ -50,44 +50,44 @@ routes.get(
     }),
   }),
   (req, res) => {
-    read(req, res, prisma.usuario)
+    read(req, res)
   },
 )
 
-// Update
-routes.put(
-  '/usuario',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      id: Joi.string().required(),
-      nome: Joi.string(),
-      sobrenome: Joi.string(),
-      documento: Joi.string().min(11).max(11),
-      email: Joi.string(),
-      senha: Joi.string(),
-      salario: Joi.number(),
-      data_salario: Joi.number(),
-      vale: Joi.number(),
-      data_vale: Joi.number(),
-      ativo: Joi.bool(),
-    }),
-  }),
-  (req, res) => {
-    update(req, res, prisma.usuario)
-  },
-)
+// // Update
+// routes.put(
+//   '/usuario',
+//   celebrate({
+//     [Segments.BODY]: Joi.object().keys({
+//       id: Joi.string().required(),
+//       nome: Joi.string(),
+//       sobrenome: Joi.string(),
+//       documento: Joi.string().min(11).max(11),
+//       email: Joi.string(),
+//       senha: Joi.string(),
+//       salario: Joi.number(),
+//       data_salario: Joi.number(),
+//       vale: Joi.number(),
+//       data_vale: Joi.number(),
+//       ativo: Joi.bool(),
+//     }),
+//   }),
+//   (req, res) => {
+//     update(req, res, prisma.usuario)
+//   },
+// )
 
-// Delete
-routes.delete(
-  '/usuario',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      id: Joi.string().required(),
-    }),
-  }),
-  (req, res) => {
-    remove(req, res, prisma.usuario)
-  },
-)
+// // Delete
+// routes.delete(
+//   '/usuario',
+//   celebrate({
+//     [Segments.BODY]: Joi.object().keys({
+//       id: Joi.string().required(),
+//     }),
+//   }),
+//   (req, res) => {
+//     remove(req, res, prisma.usuario)
+//   },
+// )
 
 export default routes

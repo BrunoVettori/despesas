@@ -5,16 +5,16 @@ import { Router } from 'express'
 
 import usuario from './usuarios/usuario'
 
-import usuario_grupo from './usuarios/usuario_grupo'
+// import usuario_grupo from './usuarios/usuario_grupo'
 
-import grupo from './usuarios/grupo'
+// import grupo from './usuarios/grupo'
 
 const routes = Router()
 
 // Usuario
 routes.use(usuario)
-routes.use(grupo)
-routes.use(usuario_grupo)
+// routes.use(grupo)
+// routes.use(usuario_grupo)
 
 routes.use(errors())
 
