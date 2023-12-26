@@ -10,14 +10,12 @@
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/app.ts' -e ts",
     "lint": "eslint . --ext .ts",
     "prisma_migrate_prod": "npx prisma migrate deploy",
-    "prisma_migrate": "npx prisma migrate dev",
-    "prisma_generate": "npx prisma generate"
+    "prisma_migrate": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
@@ -34,8 +32,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
-    "bcrypt": "^5.1.1",
     "celebrate": "^15.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.17.1",

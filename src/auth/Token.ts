@@ -1,42 +1,29 @@
 import { sign, verify } from 'jsonwebtoken'
 
-class Token {
-  secret: string
-  expiresIn: string
+export function create(secret: string, expiresIn: string, data: any): string {
+  const token = sign({ data: data }, secret, {
+    expiresIn: expiresIn,
+  })
 
-  constructor(secret: string, expiresIn: string) {
-    // Constructor
-    this.secret = secret
-    this.expiresIn = expiresIn
-  }
-
-  public create(data: any): string {
-    const token = sign({ data: data }, this.secret, {
-      expiresIn: this.expiresIn,
-    })
-
-    return token
-  }
-
-  public refresh(token: string): string {
-    const token_verify: any = verify(token, this.secret)
-
-    const new_token = sign({ data: token_verify['data'] }, this.secret, {
-      expiresIn: this.expiresIn,
-    })
-
-    return new_token
-  }
-
-  public verify(token: string): any {
-    if (token.includes('Bearer')) {
-      token = token.replace('Bearer ', '')
-    }
-
-    const token_verify = verify(token, this.secret)
-
-    return token_verify
-  }
+  return token
 }
 
-export default Token
+export function token_verify(secret: string, expiresIn: string, token: string): any {
+  if (token.includes('Bearer')) {
+    token = token.replace('Bearer ', '')
+  }
+
+  const token_verify = verify(token, secret)
+
+  return token_verify
+}
+
+export function refresh(secret: string, expiresIn: string, token: string): string {
+  const token_verify: any = verify(token, secret)
+
+  const new_token = sign({ data: token_verify['data'] }, secret, {
+    expiresIn: expiresIn,
+  })
+
+  return new_token
+}

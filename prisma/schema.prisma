@@ -27,6 +27,16 @@ model usuario {
   usuario_grupo usuario_grupo[]
 }
 
+model gurpo {
+  id            String          @id @default(uuid())
+  nome          String
+  ativo         Boolean         @default(true)
+  despesas      despesas[]
+  usuario_grupo usuario_grupo[]
+  created_at    DateTime        @default(now())
+  updated_at    DateTime?       @updatedAt
+}
+
 model usuario_grupo {
   id         String          @id @default(uuid())
   gurpo      gurpo?          @relation(fields: [gurpo_id], references: [id])
@@ -38,35 +48,25 @@ model usuario_grupo {
   updated_at DateTime?       @updatedAt
 }
 
-model gurpo {
-  id            String          @id @default(uuid())
-  nome          String
-  usuario_grupo usuario_grupo[]
-  despesas      despesas[]
-  ativo         Boolean         @default(true)
-  created_at    DateTime        @default(now())
-  updated_at    DateTime?       @updatedAt
-}
-
 model despesas {
-  id               String        @id @default(uuid())
-  categoria        categoria     @relation(fields: [categoria_id], references: [id])
+  id               String           @id @default(uuid())
+  categoria        categoria        @relation(fields: [categoria_id], references: [id])
   categoria_id     String
   descricao        String
   valor            Decimal
-  data             DateTime      @default(now())
-  pagamento        pagamento
-  usuario          usuario       @relation(fields: [usuario_id], references: [id])
-  usuario_id       String
-  gurpo            gurpo?        @relation(fields: [gurpo_id], references: [id])
+  data             DateTime         @default(now())
+  metodo_pagamento metodo_pagamento
+  usuario          usuario?         @relation(fields: [usuario_id], references: [id])
+  usuario_id       String?
+  gurpo            gurpo?           @relation(fields: [gurpo_id], references: [id])
   gurpo_id         String?
-  despesa_conjunta Boolean       @default(false)
-  parcelado        Boolean       @default(false)
-  parcelas         parcelas?     @relation(fields: [parcelas_id], references: [id])
+  despesa_conjunta Boolean          @default(false)
+  parcelado        Boolean          @default(false)
+  parcelas         parcelas?        @relation(fields: [parcelas_id], references: [id])
   parcelas_id      String?
-  created_at       DateTime      @default(now())
-  updated_at       DateTime?     @updatedAt
-  recorrencia      recorrencia[]
+  recorrencia      recorrencia?
+  created_at       DateTime         @default(now())
+  updated_at       DateTime?        @updatedAt
 }
 
 model categoria {
@@ -87,14 +87,11 @@ model parcelas {
   despesas        despesas[]
 }
 
-model recorrencia {
-  id               String    @id @default(uuid())
-  despesa          despesas  @relation(fields: [despesas_id], references: [id])
-  despesas_id      String
-  data_recorrencia DateTime  @default(now())
-  ativo            Boolean   @default(true)
-  created_at       DateTime  @default(now())
-  updated_at       DateTime? @updatedAt
+enum recorrencia {
+  diaria
+  semanal
+  mensal
+  anual
 }
 
 enum permissao_grupo {
@@ -103,7 +100,7 @@ enum permissao_grupo {
   user
 }
 
-enum pagamento {
+enum metodo_pagamento {
   dinheiro
   vale
   transferencia
