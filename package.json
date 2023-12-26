@@ -32,6 +32,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.7.1",
     "celebrate": "^15.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.17.1",
