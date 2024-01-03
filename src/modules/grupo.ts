@@ -13,8 +13,6 @@ export async function create(req: Request, res: Response) {
 }
 
 export async function read(req: Request, res: Response) {
-  // const body = ParseRequestBody(req)
-
   const query = Select({ table: 'usuario' })
 
   const query_result = await pool.query(query)

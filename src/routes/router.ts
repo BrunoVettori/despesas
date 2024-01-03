@@ -16,6 +16,8 @@ routes.use(usuario)
 // routes.use(grupo)
 // routes.use(usuario_grupo)
 
+console.log('errors()', errors())
+
 routes.use(errors())
 
 export default routes

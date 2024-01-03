@@ -1,11 +1,8 @@
-// import { Router } from 'express'
-// import { celebrate, Joi, Segments } from 'celebrate'
+import { Router } from 'express'
+import { celebrate, Joi, Segments } from 'celebrate'
+import { create, read, update, remove } from '@modules/usuario'
 
-// import prisma from '../../database/prisma'
-// // import auth from '../../middlewares/auth'
-// import { create, read, update, remove } from '../../modules/Crud'
-
-// const routes = Router()
+const routes = Router()
 
 // // Create
 // routes.post(
@@ -19,8 +16,6 @@
 //     return await create(req, res, prisma.gurpo)
 //   },
 // )
-
-// // routes.use(auth)
 
 // // Read
 // routes.get(
@@ -69,4 +64,4 @@
 //   },
 // )
 
-// export default routes
+export default routes

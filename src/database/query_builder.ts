@@ -2,8 +2,6 @@ import { Request } from 'express'
 
 import { v4 as uuidv4 } from 'uuid'
 
-// select * from usuarios where dia > 5 and nome like 'asdad' order by freela asc limit 100
-
 interface ISelect {
   fields?: Array<string>
   table: string
@@ -34,21 +32,13 @@ export function Select({ fields, table, where, order_field, order, limit }: ISel
   return query
 }
 
-// INSERT INTO films VALUES
-//     ('UA502', 'Bananas', 105, DEFAULT, 'Comedy', '82 minutes');
-// INSERT INTO films (code, title, did, date_prod, kind)
-//     VALUES ('T_601', 'Yojimbo', 106, DEFAULT, 'Drama');
-
-interface IKeyValueInsert {
+interface IKeyValue {
   key: string
   value: string
 }
 
-export function Insert(table: string, data: Array<IKeyValueInsert>, insert_id: boolean = false) {
-  let query = 'insert into'
-
-  query += ' '
-  query += table
+export function Insert(table: string, data: Array<IKeyValue>, insert_id: boolean = false) {
+  let query = `insert into ${table}`
 
   let keys = ''
   let values = ''
@@ -65,14 +55,32 @@ export function Insert(table: string, data: Array<IKeyValueInsert>, insert_id: b
     values = `'${uuidv4()}', ${values}`
   }
 
-  query += ' '
-  query += `(${keys})`
+  query += ` (${keys}) values (${values})`
 
-  query += ' '
-  query += 'values'
+  query += ' returning *'
 
-  query += ' '
-  query += `(${values})`
+  return query
+}
+
+export function Update(table: string, data: Array<IKeyValue>, where: { field: string; value: string }) {
+  let query = `update ${table} set`
+
+  data.forEach((item, index) => {
+    if (index !== 0) query += ','
+    query += ` ${item.key} = '${item.value}'`
+  })
+
+  query += ` where ${where.field} = '${where.value}'`
+
+  query += ' returning *'
+
+  return query
+}
+
+export function Remove(table: string, where: { field: string; value: string }) {
+  let query = `delete from ${table}`
+
+  query += ` where ${where.field} = '${where.value}'`
 
   query += ' returning *'
 
